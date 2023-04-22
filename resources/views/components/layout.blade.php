@@ -27,8 +27,23 @@
                 </a>
             </div>
 
-            <div class="mt-8 md:mt-0">
-                <a href="/" class="text-xs font-bold uppercase">Home Page</a>
+            <div class="mt-8 md:mt-0 flex">
+                <div class="grid place-items-center">
+                   @guest 
+                {{-- this method is used to show this part of the code for guests only --}}
+                    <a href="/register" class="text-xs font-bold uppercase">Register</a>
+                @else
+                <p class="text-sm font-bold uppercase inline">Welcome {{auth()->user()->name}}</p>
+                
+
+                @endguest
+                <form action="/logout" method="POST">
+                @csrf
+                <button class="text-sm font-bold">Logout</button>
+                </form>
+                </div>
+                
+                
 
                 <a href="#" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
                     Subscribe for Updates

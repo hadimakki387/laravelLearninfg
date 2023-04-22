@@ -19,10 +19,15 @@ class RegisterController extends Controller
             'password' => ['required','min:7','max:255'],
         ]);
 
-        User::create($attribute);
+        $user = User::create($attribute);
 
-        session()->flash('success','Your account has been created.');
+        // session()->flash('success','Your account has been created.'); we can flash like that but also 
+        // we can use ->with('name of the flash','the message want to send') after redirecting like Im gonna do down 
 
-        return redirect('/');
+        // to login the user:
+        auth()->login($user);
+        
+
+        return redirect('/')->with('success','Your account has been created');
     }
 }
