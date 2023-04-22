@@ -47,7 +47,11 @@
 
                     <div class="space-y-4 lg:text-lg leading-loose">{!! $post->body !!}</div>
                 </div>
+                <x-postComment/>
+                
             </article>
+            
         </main>
     </section>
+    
 </x-layout>
