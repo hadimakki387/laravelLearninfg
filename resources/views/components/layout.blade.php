@@ -27,20 +27,27 @@
                 </a>
             </div>
 
-            <div class="mt-8 md:mt-0 flex">
+            <div class="mt-8 md:mt-0 flex gap-3">
                 <div class="grid place-items-center">
                    @guest 
                 {{-- this method is used to show this part of the code for guests only --}}
+                <div class="flex gap-6">
                     <a href="/register" class="text-xs font-bold uppercase">Register</a>
+                    <a href="/login" class="text-xs font-bold uppercase">login</a>
+                </div>
+                    
                 @else
-                <p class="text-sm font-bold uppercase inline">Welcome {{auth()->user()->name}}</p>
-                
-
-                @endguest
+                <div class="flex justify-center items-center gap-4">
+                     <p class="text-sm font-bold uppercase inline">Welcome {{auth()->user()->name}}</p>
                 <form action="/logout" method="POST">
                 @csrf
-                <button class="text-sm font-bold">Logout</button>
+                <button class="text-sm font-bold text-blue-500">Logout</button>
                 </form>
+                </div>
+               
+
+                @endguest
+                
                 </div>
                 
                 
