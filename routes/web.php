@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
@@ -20,13 +21,4 @@ Route::post('logout',[SessionsController::class,'destroy'])->middleware('auth');
 Route::get('login',[SessionsController::class,'create'])->middleware('guest');
 Route::post('login',[SessionsController::class,'store'])->middleware('guest');
 
-Route:: get ('ping', function () {
-    
-    $mailchimp = new \MailchimpMarketing\ApiClient() ;
-    $mailchimp->setConfig ([
-    'apiKey' => config('services.mailchimp.key'),
-    'server' => 'us21'
-    ]);
-    $response = $mailchimp->lists->getListMembersInfo("a4407b043e") ;
-    dd($response) ;
-});
+Route::post('newsletter', [NewsletterController::class,'newsLetter']);
