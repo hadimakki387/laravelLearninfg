@@ -47,7 +47,10 @@
 
                     <div class="space-y-4 lg:text-lg leading-loose">{!! $post->body !!}</div>
                 </div>
-                <x-postComment/>
+                @foreach ($post->comments as $comment)
+                   <x-postComment :comment="$comment"/> 
+                @endforeach
+                
                 
             </article>
             
