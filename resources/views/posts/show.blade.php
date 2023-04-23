@@ -49,7 +49,8 @@
                 </div> 
                 
                 <section class="col-span-8 col-start-5 mt-10 space-y-6">
-                    <form action="/" method="POST" class="border border-gray-200 p-6 rounded-xl">
+                    @auth
+                        <form action="/posts/{{$post->slug}}/comments" method="post" class="border border-gray-200 p-6 rounded-xl">
                         @csrf
                         <header class="flex items-center">
                             <img src="https://i.pravatar.cc/60?u={{auth()->id()}}" alt="" width="40" height="40" class="rounded-full">
@@ -64,8 +65,20 @@
                             <button class="bg-blue-500 text-white uppercase font-semibold text-xs py-2 px-10 rounded-2xl hover:bg-blue-600">Post</button>
                         </div>
                     </form>
+                    @else
+
+                    <p > 
+                        <a href="/register" class="underline text-blue-500">Register</a> or <a href="/login" class="underline text-blue-500">Log in</a> to leave a comment
+                    </p>
+
+                    @endauth
+
+                    
+                        
+                    
+                    
                 
-                    @foreach ($post->comments as $comment)
+                    @foreach ($post->comments->sortByDesc('created_at') as $comment)
                         <x-postComment :comment="$comment"/> 
                     @endforeach
                 </section>
