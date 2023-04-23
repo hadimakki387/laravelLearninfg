@@ -24,3 +24,4 @@ Route::post('login',[SessionsController::class,'store'])->middleware('guest');
 Route::post('newsletter', [NewsletterController::class,'newsLetter']);
 
 Route::get('admin/posts/create', [PostController::class,'create'])->middleware('adminsOnly');
+Route::post ('admin/posts', [PostController::class,'store'])->middleware('adminsOnly');
