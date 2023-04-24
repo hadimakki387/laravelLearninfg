@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\CommentController;
+use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\PostController;
@@ -23,5 +23,10 @@ Route::post('login',[SessionsController::class,'store'])->middleware('guest');
 
 Route::post('newsletter', [NewsletterController::class,'newsLetter']);
 
-Route::get('admin/posts/create', [PostController::class,'create'])->middleware('adminsOnly');
-Route::post ('admin/posts', [PostController::class,'store'])->middleware('adminsOnly');
+// Admin
+Route::post('admin/posts', [AdminPostController::class, 'store'])->middleware('adminsOnly');
+Route::get('admin/posts/create', [AdminPostController::class, 'create'])->middleware('adminsOnly');
+Route::get('admin/posts', [AdminPostController::class, 'index'])->middleware('adminsOnly');
+Route::get('admin/posts/{post:id}/edit', [AdminPostController::class, 'edit'])->middleware('adminsOnly');
+Route::patch('admin/posts/{post}', [AdminPostController::class, 'update'])->middleware('adminsOnly');
+Route::delete('admin/posts/{post}', [AdminPostController::class, 'destroy'])->middleware('adminsOnly');
