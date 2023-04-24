@@ -5,7 +5,12 @@
     <div class="py-6 px-5 h-full flex flex-col">
         <div>
             {{-- TODO --}}
-            <img src="/images/illustration-3.png" alt="Blog Post illustration" class="rounded-xl">
+            @if ($post->thumbnail)
+               <img src="{{ asset('storage/' . $post->thumbnail) }}" alt="Blog Post illustration" class="rounded-xl"> 
+            @else
+                <img src="/images/illustration-3.png" alt="Blog Post illustration" class="rounded-xl">
+            @endif
+            
         </div>
 
         <div class="mt-6 flex flex-col justify-between flex-1">
