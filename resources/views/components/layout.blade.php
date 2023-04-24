@@ -41,11 +41,20 @@
                     
                 @else
                 <div class="flex justify-center items-center gap-4">
-                     <p class="text-sm font-bold uppercase inline">Welcome {{auth()->user()->name}}</p>
-                <form action="/logout" method="POST">
-                @csrf
-                <button class="text-sm font-bold text-blue-500">Logout</button>
-                </form>
+                    <x-dropdown>
+                        <x-slot name="trigger">
+                            <button class="text-sm font-bold uppercase inline hover:underline">Welcome {{auth()->user()->name}}</button>
+                        </x-slot>  
+                        <x-dropdown-item href=" /admin/dashboard">Dashboard </x-dropdown-item>
+                        <x-dropdown-item href="/admin/posts/create" :active="request () ->is ('admin/posts/create') ">New Post </x-dropdown-item>
+                        <x-dropdown-item href="#"><button onclick="document.getElementById('logoutFrom').submit()">Logout</button> </x-dropdown-item>      
+                        <form action="/logout" method="POST" class="hidden" id="logoutFrom">
+                            @csrf
+                            <button class="text-sm font-bold text-blue-500 relative top-2">Logout</button>
+                        </form>                  
+                    </x-dropdown>
+                     
+                
                 </div>
                
 
@@ -69,7 +78,7 @@
             <p class="text-sm mt-3">Promise to keep the inbox clean. No bugs.</p>
 
             <div class="mt-10">
-                <div class="relative inline-block mx-auto lg:bg-gray-200 rounded-full">
+                <div class="relative inline-block mx-auto lg:bg-gray-200 rounded-full h-11">
                     <form method="POST" action="/newsletter" class="lg:flex text-sm">
                         @csrf
                         <div class="lg:py-3 lg:px-5 flex items-center">
@@ -90,7 +99,7 @@
                     </form>
                 </div>
                 @error('email')
-                        <span class="text-xs text-red-500">{{ $message }} </ span>
+                        <span class="text-xs text-red-500">{{ $message }} </span>
                     @enderror
             </div>
         </footer>
