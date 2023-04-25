@@ -41,10 +41,12 @@
                     
                 @else
                 <div class="flex justify-center items-center gap-4">
-                    <x-dropdown>
+                    @if(auth()->user()->cannot('adminsOnly'))
+                            <x-dropdown>
                         <x-slot name="trigger">
                             <button class="text-sm font-bold uppercase inline hover:underline">Welcome {{auth()->user()->name}}</button>
-                        </x-slot>  
+                        </x-slot> 
+                        
                         <x-dropdown-item href="/admin/posts" :active="request()->is('admin/posts')">Dashboard</x-dropdown-item>
                         <x-dropdown-item href="/admin/posts/create" :active="request () ->is ('admin/posts/create') ">New Post </x-dropdown-item>
                         <x-dropdown-item href="#"><button onclick="document.getElementById('logoutFrom').submit()">Logout</button> </x-dropdown-item>      
@@ -53,8 +55,14 @@
                             <button class="text-sm font-bold text-blue-500 relative top-2">Logout</button>
                         </form>                  
                     </x-dropdown>
-                     
-                
+                    @else
+
+                    <p class="text-sm font-bold uppercase inline ">Welcome {{auth()->user()->name}}</p>
+                    <form action="/logout" method="POST" id="logoutFrom">
+                        @csrf
+                        <button class="text-sm font-bold text-blue-500 relative top-2">Logout</button>
+                    </form>
+                    @endif
                 </div>
                
 
